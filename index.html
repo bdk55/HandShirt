@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Talk to the Hand — Bold Tees</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0a0a0a;
+      --cream:  #f5f0e8;
+      --yellow: #FFE030;
+      --red:    #E8171A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'Space Mono', monospace;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── Grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.055'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      opacity: 1;
+    }
+
+    /* ── Marquee ── */
+    .marquee-bar {
+      background: var(--yellow);
+      color: var(--bg);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 6px 0;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee-track span {
+      padding: 0 2.5rem;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── Sticky nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,240,232,0.08);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.7rem;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--yellow); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta {
+      background: var(--yellow);
+      color: var(--bg);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      border: none;
+      padding: 0.5rem 1.4rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .nav-cta:hover { background: var(--cream); transform: translateY(-1px); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 2rem;
+      padding: 4rem 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,224,48,0.07) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+    .hero-text { z-index: 1; }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 8rem);
+      line-height: 0.92;
+      letter-spacing: 0.03em;
+    }
+    .hero-title .line-red { color: var(--red); }
+    .hero-title .line-yellow { color: var(--yellow); }
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: rgba(245,240,232,0.65);
+      max-width: 36ch;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.2rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--bg);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      padding: 0.75rem 2rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--cream); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--cream);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      padding: 0.75rem 2rem;
+      border: 1px solid rgba(245,240,232,0.4);
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+
+    /* ── Hero shirt mockup ── */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .shirt-wrap {
+      position: relative;
+      width: 340px;
+      height: 380px;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-22px); }
+    }
+    .shirt-svg { width: 100%; height: 100%; filter: drop-shadow(0 30px 60px rgba(255,224,48,0.18)); }
+
+    /* ── Spin badge ── */
+    .spin-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 110px;
+      height: 110px;
+      animation: spin 14s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .spin-badge text {
+      font-family: 'Space Mono', monospace;
+      font-size: 11.5px;
+      fill: var(--bg);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ── Section labels ── */
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    /* ── Products ── */
+    #shop {
+      padding: 6rem 5vw;
+    }
+    .products-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: #111;
+      border: 1px solid rgba(245,240,232,0.06);
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,224,48,0.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .product-card:hover { transform: translateY(-6px); border-color: var(--yellow); box-shadow: 0 20px 50px rgba(255,224,48,0.1); }
+    .product-card:hover::before { opacity: 1; }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem;
+      position: relative;
+    }
+    .card-img svg { width: 100%; max-width: 220px; }
+
+    .card-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--red);
+      color: var(--cream);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      padding: 0.2rem 0.6rem;
+    }
+    .card-badge.new { background: var(--yellow); color: var(--bg); }
+
+    .card-body {
+      padding: 1.25rem 1.5rem 1.5rem;
+      border-top: 1px solid rgba(245,240,232,0.06);
+    }
+    .card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+    }
+    .card-desc {
+      font-size: 0.7rem;
+      color: rgba(245,240,232,0.5);
+      line-height: 1.7;
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--yellow);
+      letter-spacing: 0.04em;
+    }
+    .card-btn {
+      background: var(--cream);
+      color: var(--bg);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      padding: 0.45rem 1.1rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .card-btn:hover { background: var(--yellow); }
+
+    /* ── About / Returns ── */
+    #about {
+      padding: 6rem 5vw;
+      border-top: 1px solid rgba(245,240,232,0.06);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      font-size: 0.78rem;
+      line-height: 1.95;
+      color: rgba(245,240,232,0.65);
+      margin-top: 1.2rem;
+    }
+    .returns-list {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .returns-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      font-size: 0.75rem;
+      line-height: 1.7;
+      color: rgba(245,240,232,0.65);
+    }
+    .returns-list li .icon {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border: 1px solid rgba(255,224,48,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--yellow);
+      font-size: 0.9rem;
+      margin-top: 1px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 3rem 5vw 2rem;
+      border-top: 1px solid rgba(245,240,232,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.06em;
+      color: var(--cream);
+    }
+    .footer-logo span { color: var(--yellow); }
+    .footer-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: rgba(245,240,232,0.45);
+      text-decoration: none;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--yellow); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(245,240,232,0.06);
+    }
+    .footer-copy {
+      font-size: 0.62rem;
+      color: rgba(245,240,232,0.25);
+      letter-spacing: 0.1em;
+    }
+    .footer-tag {
+      font-size: 0.62rem;
+      color: rgba(245,240,232,0.25);
+      letter-spacing: 0.1em;
+    }
+    .footer-tag span { color: var(--red); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 3rem 5vw; }
+      .hero-visual { order: -1; }
+      .hero-sub { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      nav { padding: 0.9rem 1.5rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Marquee ── -->
+  <div class="marquee-bar" aria-hidden="true">
+    <div class="marquee-track">
+      <span>TALK TO THE HAND</span><span>✦</span>
+      <span>FREE SHIPPING OVER $75</span><span>✦</span>
+      <span>BOLD TEES. NO APOLOGIES.</span><span>✦</span>
+      <span>30-DAY RETURNS</span><span>✦</span>
+      <span>TALK TO THE HAND</span><span>✦</span>
+      <span>FREE SHIPPING OVER $75</span><span>✦</span>
+      <span>BOLD TEES. NO APOLOGIES.</span><span>✦</span>
+      <span>30-DAY RETURNS</span><span>✦</span>
+    </div>
+  </div>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <a class="nav-logo" href="#">TALK<span>✦</span>HAND</a>
+    <ul class="nav-links">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#about">Returns</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Limited Drop // Est. 2024</p>
+      <h1 class="hero-title">
+        <span class="line-cream">TALK</span><br>
+        <span class="line-red">TO</span><br>
+        <span class="line-yellow">THE HAND</span>
+      </h1>
+      <p class="hero-sub">Loud graphics. Heavy cotton. Zero compromises. Tees built for people who'd rather show you than tell you.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#shop">Shop the Drop</a>
+        <a class="btn-ghost" href="#about">Our Story</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="shirt-wrap">
+        <!-- Floating T-Shirt SVG -->
+        <svg class="shirt-svg" viewBox="0 0 340 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Shadow -->
+          <ellipse cx="170" cy="368" rx="90" ry="10" fill="rgba(255,224,48,0.12)"/>
+          <!-- Shirt body -->
+          <path d="M80 80 L30 130 L70 155 L60 340 L280 340 L270 155 L310 130 L260 80 L220 50 C210 70 190 85 170 85 C150 85 130 70 120 50 Z"
+                fill="#1a1a1a" stroke="rgba(255,224,48,0.25)" stroke-width="1.5"/>
+          <!-- Collar -->
+          <path d="M120 50 C130 70 150 85 170 85 C190 85 210 70 220 50" stroke="#FFE030" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- Hand graphic on shirt -->
+          <g transform="translate(120, 130)">
+            <!-- Palm -->
+            <path d="M55 95 C30 95 18 80 18 60 L18 25 C18 20 22 16 27 16 C32 16 36 20 36 25 L36 50
+                     C36 50 36 16 41 16 C46 16 50 20 50 25 L50 50
+                     C50 50 50 18 55 18 C60 18 64 22 64 27 L64 50
+                     C64 50 64 22 69 22 C74 22 78 26 78 31 L78 65 C78 82 70 95 55 95 Z"
+                  fill="#FFE030"/>
+            <!-- Thumb -->
+            <path d="M18 40 C10 38 4 32 4 26 C4 20 9 16 15 18 L18 25"
+                  fill="#FFE030"/>
+            <!-- Wrist -->
+            <rect x="27" y="92" width="46" height="22" rx="4" fill="#E8171A"/>
+            <!-- TTTH text on shirt -->
+            <text x="50" y="108" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="10" fill="#f5f0e8" letter-spacing="2">TTTH</text>
+          </g>
+          <!-- Sleeve wrinkle lines left -->
+          <line x1="48" y1="128" x2="62" y2="148" stroke="rgba(245,240,232,0.08)" stroke-width="1.5"/>
+          <line x1="40" y1="140" x2="56" y2="158" stroke="rgba(245,240,232,0.06)" stroke-width="1"/>
+          <!-- Sleeve wrinkle lines right -->
+          <line x1="292" y1="128" x2="278" y2="148" stroke="rgba(245,240,232,0.08)" stroke-width="1.5"/>
+          <line x1="300" y1="140" x2="284" y2="158" stroke="rgba(245,240,232,0.06)" stroke-width="1"/>
+        </svg>
+
+        <!-- Spinning badge -->
+        <svg class="spin-badge" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="55" cy="55" r="52" fill="#FFE030"/>
+          <path id="badgeCircle" d="M55,55 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none"/>
+          <text>
+            <textPath href="#badgeCircle" startOffset="0%">
+              HAND MADE ✦ HEAVY COTTON ✦ SINCE 2024 ✦
+            </textPath>
+          </text>
+          <!-- Center icon -->
+          <text x="55" y="62" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="18" fill="#0a0a0a" letter-spacing="1">✦</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Shop ── -->
+  <section id="shop">
+    <div class="products-header">
+      <div>
+        <p class="section-label">Current Drop</p>
+        <h2 class="section-title">The Collection</h2>
+      </div>
+      <p style="font-size:0.7rem;color:rgba(245,240,232,0.4);letter-spacing:0.08em;">3 styles. All heavy 100% cotton.</p>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Card 1: OG Classic -->
+      <article class="product-card">
+        <div class="card-img" style="background:#111;">
+          <span class="card-badge">Bestseller</span>
+          <svg viewBox="0 0 220 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 50 L20 82 L44 98 L38 215 L182 215 L176 98 L200 82 L170 50 L138 32 C130 44 120 54 110 54 C100 54 90 44 82 32 Z" fill="#1e1e1e" stroke="rgba(255,224,48,0.2)" stroke-width="1"/>
+            <path d="M82 32 C90 44 100 54 110 54 C120 54 130 44 138 32" stroke="#FFE030" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- OG hand graphic -->
+            <g transform="translate(70,78)">
+              <path d="M35 60 C20 60 12 50 12 38 L12 16 C12 13 15 10 18 10 C21 10 24 13 24 16 L24 32 C24 32 24 10 27 10 C30 10 33 13 33 16 L33 32 C33 32 33 11 36 11 C39 11 42 14 42 17 L42 32 C42 32 42 14 45 14 C48 14 51 17 51 20 L51 42 C51 52 44 60 35 60 Z" fill="#FFE030"/>
+              <path d="M12 26 C7 24 3 20 3 16 C3 12 6 10 10 11 L12 16" fill="#FFE030"/>
+              <rect x="17" y="58" width="36" height="14" rx="3" fill="#E8171A"/>
+              <text x="35" y="69" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="7" fill="#f5f0e8" letter-spacing="1.5">CLASSIC</text>
+            </g>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">OG Classic</h3>
+          <p class="card-desc">The one that started it all. Yellow hand on black,<br>heavyweight 320gsm cotton.</p>
+          <div class="card-footer">
+            <span class="card-price">$32</span>
+            <button class="card-btn">Add to Bag</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2: Not Today -->
+      <article class="product-card">
+        <div class="card-img" style="background:#0f0f0f;">
+          <span class="card-badge new">New</span>
+          <svg viewBox="0 0 220 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 50 L20 82 L44 98 L38 215 L182 215 L176 98 L200 82 L170 50 L138 32 C130 44 120 54 110 54 C100 54 90 44 82 32 Z" fill="#1a0a0a" stroke="rgba(232,23,26,0.3)" stroke-width="1"/>
+            <path d="M82 32 C90 44 100 54 110 54 C120 54 130 44 138 32" stroke="#E8171A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Not Today hand (palm facing out, red + cream) -->
+            <g transform="translate(70,72)">
+              <path d="M35 65 C20 65 12 55 12 43 L12 18 C12 15 15 12 18 12 C21 12 24 15 24 18 L24 36 C24 36 24 12 27 12 C30 12 33 15 33 18 L33 36 C33 36 33 13 36 13 C39 13 42 16 42 19 L42 36 C42 36 42 16 45 16 C48 16 51 19 51 24 L51 46 C51 58 44 65 35 65 Z" fill="#f5f0e8"/>
+              <path d="M12 28 C7 26 3 22 3 18 C3 14 6 12 10 13 L12 18" fill="#f5f0e8"/>
+              <rect x="17" y="62" width="36" height="16" rx="3" fill="#E8171A"/>
+              <text x="35" y="74" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="7" fill="#f5f0e8" letter-spacing="1">NOT TODAY</text>
+            </g>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Not Today</h3>
+          <p class="card-desc">Cream hand on deep red-tinted black. Statement<br>piece for Monday energy.</p>
+          <div class="card-footer">
+            <span class="card-price">$36</span>
+            <button class="card-btn">Add to Bag</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: Blackout Edition -->
+      <article class="product-card">
+        <div class="card-img" style="background:#080808;">
+          <svg viewBox="0 0 220 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 50 L20 82 L44 98 L38 215 L182 215 L176 98 L200 82 L170 50 L138 32 C130 44 120 54 110 54 C100 54 90 44 82 32 Z" fill="#0d0d0d" stroke="rgba(245,240,232,0.12)" stroke-width="1"/>
+            <path d="M82 32 C90 44 100 54 110 54 C120 54 130 44 138 32" stroke="rgba(245,240,232,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Blackout: dark hand, subtle outline only -->
+            <g transform="translate(70,75)">
+              <path d="M35 62 C20 62 12 52 12 40 L12 16 C12 13 15 10 18 10 C21 10 24 13 24 16 L24 34 C24 34 24 10 27 10 C30 10 33 13 33 16 L33 34 C33 34 33 11 36 11 C39 11 42 14 42 17 L42 34 C42 34 42 14 45 14 C48 14 51 17 51 22 L51 44 C51 55 44 62 35 62 Z" fill="#1a1a1a" stroke="#f5f0e8" stroke-width="1.2"/>
+              <path d="M12 26 C7 24 3 20 3 16 C3 12 6 10 10 11 L12 16" fill="#1a1a1a" stroke="#f5f0e8" stroke-width="1.2"/>
+              <rect x="17" y="60" width="36" height="15" rx="3" fill="#1a1a1a" stroke="#f5f0e8" stroke-width="0.8"/>
+              <text x="35" y="71.5" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="6.5" fill="#f5f0e8" letter-spacing="1">BLACKOUT</text>
+            </g>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">Blackout Edition</h3>
+          <p class="card-desc">Tonal black-on-black with cream outline. Wear it<br>when you mean it.</p>
+          <div class="card-footer">
+            <span class="card-price">$42</span>
+            <button class="card-btn">Add to Bag</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── About / Returns ── -->
+  <section id="about">
+    <div class="about-text">
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">Made with<br><span style="color:var(--red)">conviction</span></h2>
+      <p>Talk to the Hand started with one screen, one design, and a refusal to make anything boring. Every tee is printed in-house on 320gsm combed cotton — the kind of weight that holds its shape past a hundred washes.</p>
+      <p>We don't do fast fashion. We don't do apologies. We drop small runs, keep the quality high, and let the shirts speak for themselves.</p>
+    </div>
+
+    <div class="returns-info">
+      <p class="section-label">Returns & Shipping</p>
+      <h2 class="section-title">We got<br><span style="color:var(--yellow)">you covered</span></h2>
+      <ul class="returns-list">
+        <li>
+          <span class="icon">↩</span>
+          <span><strong>30-day returns.</strong> Worn it once and changed your mind? Send it back, no questions asked.</span>
+        </li>
+        <li>
+          <span class="icon">✦</span>
+          <span><strong>Free shipping over $75.</strong> Orders ship within 2 business days via USPS Priority.</span>
+        </li>
+        <li>
+          <span class="icon">▲</span>
+          <span><strong>Size exchanges.</strong> Wrong size? We'll swap it. Reply to your order email and we'll sort it.</span>
+        </li>
+        <li>
+          <span class="icon">✓</span>
+          <span><strong>Defect guarantee.</strong> If it's our fault, you get a replacement or full refund. Always.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-logo">TALK<span>✦</span>HAND</div>
+      <ul class="footer-links">
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#about">Returns</a></li>
+        <li><a href="mailto:hello@talktothehand.co">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 Talk to the Hand. All rights reserved.</p>
+      <p class="footer-tag">Made with <span>♥</span> and too much coffee.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
