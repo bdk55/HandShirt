@@ -445,12 +445,131 @@
     }
     .footer-tag span { color: var(--red); }
 
+    /* ── Featured Drop ── */
+    #featured {
+      padding: 5rem 5vw;
+      border-top: 1px solid rgba(245,240,232,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    #featured::before {
+      content: 'LOSER';
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22vw;
+      color: rgba(232,23,26,0.045);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+    }
+    .featured-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .featured-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--red);
+      color: var(--cream);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      padding: 0.3rem 0.9rem;
+      margin-bottom: 1.2rem;
+    }
+    .featured-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: 0.04em;
+    }
+    .featured-title .loser-word { color: var(--red); }
+    .featured-sub {
+      margin-top: 1.2rem;
+      font-size: 0.78rem;
+      line-height: 1.85;
+      color: rgba(245,240,232,0.6);
+      max-width: 38ch;
+    }
+    .featured-price-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .featured-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--yellow);
+      letter-spacing: 0.04em;
+    }
+    .featured-limit {
+      font-size: 0.65rem;
+      color: var(--red);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1px solid rgba(232,23,26,0.5);
+      padding: 0.3rem 0.7rem;
+    }
+    .btn-loser {
+      margin-top: 1.5rem;
+      background: var(--red);
+      color: var(--cream);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      padding: 0.8rem 2.5rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-loser:hover { background: #ff2225; transform: translateY(-2px); }
+    .featured-visual {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+    .featured-shirt-wrap {
+      position: relative;
+      width: 380px;
+      max-width: 100%;
+    }
+    .featured-shirt-wrap svg {
+      width: 100%;
+      filter: drop-shadow(0 20px 60px rgba(232,23,26,0.3));
+    }
+    .featured-sold-badge {
+      position: absolute;
+      top: 12px;
+      right: -8px;
+      background: var(--red);
+      color: var(--cream);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      padding: 0.4rem 0.8rem;
+      transform: rotate(3deg);
+    }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .hero { grid-template-columns: 1fr; text-align: center; padding: 3rem 5vw; }
       .hero-visual { order: -1; }
       .hero-sub { max-width: 100%; }
       .hero-btns { justify-content: center; }
+      .featured-inner { grid-template-columns: 1fr; }
+      .featured-visual { order: -1; }
+      #featured::before { font-size: 35vw; }
       #about { grid-template-columns: 1fr; gap: 3rem; }
       nav { padding: 0.9rem 1.5rem; }
       .nav-links { display: none; }
@@ -463,10 +582,12 @@
   <div class="marquee-bar" aria-hidden="true">
     <div class="marquee-track">
       <span>TALK TO THE HAND</span><span>✦</span>
+      <span>NEW: THE LOSER SHIRT — 50 UNITS ONLY</span><span>✦</span>
       <span>FREE SHIPPING OVER $75</span><span>✦</span>
       <span>BOLD TEES. NO APOLOGIES.</span><span>✦</span>
       <span>30-DAY RETURNS</span><span>✦</span>
       <span>TALK TO THE HAND</span><span>✦</span>
+      <span>NEW: THE LOSER SHIRT — 50 UNITS ONLY</span><span>✦</span>
       <span>FREE SHIPPING OVER $75</span><span>✦</span>
       <span>BOLD TEES. NO APOLOGIES.</span><span>✦</span>
       <span>30-DAY RETURNS</span><span>✦</span>
@@ -551,6 +672,53 @@
     </div>
   </section>
 
+  <!-- ── Featured Drop: Loser Special Edition ── -->
+  <section id="featured">
+    <div class="featured-inner">
+      <div class="featured-text">
+        <div class="featured-tag">★ Special Edition Drop</div>
+        <h2 class="featured-title">
+          THE<br>
+          <span class="loser-word">LOSER</span><br>
+          SHIRT
+        </h2>
+        <p class="featured-sub">Own it. A bone-white tee for everyone who plays by their own rules. "LOSER" — screen-printed in blood red on 320gsm combed cotton. 50 units. No restock. Ever.</p>
+        <div class="featured-price-row">
+          <span class="featured-price">$48</span>
+          <span class="featured-limit">Only 50 Made</span>
+        </div>
+        <button class="btn-loser">Grab Yours Now</button>
+      </div>
+
+      <div class="featured-visual">
+        <div class="featured-shirt-wrap">
+          <svg viewBox="0 0 380 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="190" cy="413" rx="100" ry="8" fill="rgba(232,23,26,0.15)"/>
+            <!-- Cream/bone shirt body -->
+            <path d="M90 90 L34 146 L78 174 L68 380 L312 380 L302 174 L346 146 L290 90 L246 56 C234 78 214 96 190 96 C166 96 146 78 134 56 Z"
+                  fill="#ede8de" stroke="rgba(232,23,26,0.35)" stroke-width="1.5"/>
+            <!-- Collar -->
+            <path d="M134 56 C146 78 166 96 190 96 C214 96 234 78 246 56" stroke="#E8171A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- LOSER text -->
+            <text x="190" y="218" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="64" fill="#E8171A" letter-spacing="5">LOSER</text>
+            <!-- Underline -->
+            <line x1="98" y1="232" x2="282" y2="232" stroke="#E8171A" stroke-width="3" stroke-linecap="round"/>
+            <!-- Star + sub text -->
+            <text x="130" y="272" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="16" fill="#E8171A" opacity="0.75">✦</text>
+            <text x="190" y="272" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="11" fill="#0a0a0a" letter-spacing="3" opacity="0.45">SPECIAL EDITION</text>
+            <text x="250" y="272" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="16" fill="#E8171A" opacity="0.75">✦</text>
+            <!-- Sleeve texture -->
+            <line x1="52" y1="145" x2="70" y2="170" stroke="rgba(10,10,10,0.09)" stroke-width="1.5"/>
+            <line x1="44" y1="160" x2="64" y2="183" stroke="rgba(10,10,10,0.06)" stroke-width="1"/>
+            <line x1="328" y1="145" x2="310" y2="170" stroke="rgba(10,10,10,0.09)" stroke-width="1.5"/>
+            <line x1="336" y1="160" x2="316" y2="183" stroke="rgba(10,10,10,0.06)" stroke-width="1"/>
+          </svg>
+          <div class="featured-sold-badge">50 Units Only</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Shop ── -->
   <section id="shop">
     <div class="products-header">
@@ -558,7 +726,7 @@
         <p class="section-label">Current Drop</p>
         <h2 class="section-title">The Collection</h2>
       </div>
-      <p style="font-size:0.7rem;color:rgba(245,240,232,0.4);letter-spacing:0.08em;">3 styles. All heavy 100% cotton.</p>
+      <p style="font-size:0.7rem;color:rgba(245,240,232,0.4);letter-spacing:0.08em;">4 styles. All heavy 100% cotton.</p>
     </div>
 
     <div class="products-grid">
@@ -636,6 +804,28 @@
           <div class="card-footer">
             <span class="card-price">$42</span>
             <button class="card-btn">Add to Bag</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4: Loser Special Edition -->
+      <article class="product-card" style="border-color:rgba(232,23,26,0.3);">
+        <div class="card-img" style="background:#110202;">
+          <span class="card-badge">Special Ed.</span>
+          <svg viewBox="0 0 220 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 50 L20 82 L44 98 L38 215 L182 215 L176 98 L200 82 L170 50 L138 32 C130 44 120 54 110 54 C100 54 90 44 82 32 Z" fill="#ede8de" stroke="rgba(232,23,26,0.5)" stroke-width="1"/>
+            <path d="M82 32 C90 44 100 54 110 54 C120 54 130 44 138 32" stroke="#E8171A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <text x="110" y="143" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="33" fill="#E8171A" letter-spacing="3">LOSER</text>
+            <line x1="55" y1="151" x2="165" y2="151" stroke="#E8171A" stroke-width="1.5" stroke-linecap="round"/>
+            <text x="110" y="170" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="7.5" fill="#0a0a0a" letter-spacing="2.5" opacity="0.45">SPECIAL EDITION</text>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name" style="color:var(--red);">Loser</h3>
+          <p class="card-desc">Bone-white tee, blood-red print. 50 units,<br>no restock. Own it or miss it.</p>
+          <div class="card-footer">
+            <span class="card-price">$48</span>
+            <button class="card-btn" style="background:var(--red);color:var(--cream);">Add to Bag</button>
           </div>
         </div>
       </article>
